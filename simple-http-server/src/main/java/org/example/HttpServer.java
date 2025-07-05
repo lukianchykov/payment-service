@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class HttpServer {
 
-    private static final String STATIC_DIR = "static";
+    private static final String STATIC_DIR = "simple-http-server/static";
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8080);
