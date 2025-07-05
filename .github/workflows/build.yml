@@ -1,10 +1,10 @@
 name: Build Project for PR
 
 on:
-# Запуск только при создании или обновлении pull request в ветку main
+# Запуск только при создании или обновлении pull request в ветку master
   pull_request:
     branches:
-      - 'main'
+      - 'master'
 jobs:
   build:
     runs-on: ubuntu-latest
