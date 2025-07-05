@@ -5,9 +5,12 @@
   <artifactId>payment-service</artifactId>
   <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-  <name>Archetype - payment-service</name>
+
+    <name>Payment Service</name>
+    <description>Parent project for Payment Service</description>
   <url>http://maven.apache.org</url>
     <modules>
         <module>simple-http-server</module>
+        <module>payment-service-app</module>
     </modules>
 </project>
