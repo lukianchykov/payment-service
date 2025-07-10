@@ -1,12 +1,12 @@
 package com.iprody.paymentserviceapp.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
-import com.iprody.paymentserviceapp.model.Payment;
+import com.iprody.paymentserviceapp.persistence.PaymentRepository;
+import com.iprody.paymentserviceapp.persistence.entity.Payment;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,22 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/payments")
 public class PaymentController {
 
-    private final Map<Long, Payment> paymentStorage = new HashMap<>();
+    private final PaymentRepository paymentRepository;
 
-    public PaymentController() {
-        paymentStorage.put(1L, new Payment(1L, 99.99));
-        paymentStorage.put(2L, new Payment(2L, 150.00));
-        paymentStorage.put(3L, new Payment(3L, 75.25));
-        paymentStorage.put(4L, new Payment(4L, 200.00));
+    public PaymentController(PaymentRepository paymentRepository) {
+        this.paymentRepository = paymentRepository;
     }
 
     @GetMapping("/{id}")
-    public Payment getPaymentById(@PathVariable Long id) {
-        return paymentStorage.get(id);
+    public ResponseEntity<Payment> getPaymentById(@PathVariable UUID id) {
+        return paymentRepository.findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
     public List<Payment> getAllPayments() {
-        return new ArrayList<>(paymentStorage.values());
+        return paymentRepository.findAll();
     }
 }
