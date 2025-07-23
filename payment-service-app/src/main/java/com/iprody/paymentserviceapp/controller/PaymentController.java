@@ -48,8 +48,8 @@ public class PaymentController {
     @GetMapping("/search")
     public Page<Payment> searchPayments(
         @ModelAttribute PaymentFilter filter,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "20") int size,
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "25") int size,
         @RequestParam(defaultValue = "sortedBy") String sortBy,
         @RequestParam(defaultValue = "desc") String direction
     ) {
