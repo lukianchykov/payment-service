@@ -1,12 +1,11 @@
 package com.iprody.paymentserviceapp.controller;
 
-import java.util.List;
 import java.util.UUID;
 
+import com.iprody.paymentserviceapp.dto.PaymentDto;
 import com.iprody.paymentserviceapp.persistence.PaymentFilter;
-import com.iprody.paymentserviceapp.persistence.PaymentRepository;
 import com.iprody.paymentserviceapp.persistence.entity.Payment;
-import com.iprody.paymentserviceapp.service.PaymentService;
+import com.iprody.paymentserviceapp.service.PaymentServiceImpl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,25 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/payments")
 public class PaymentController {
 
-    private final PaymentRepository paymentRepository;
+    private final PaymentServiceImpl paymentServiceImpl;
 
-    private final PaymentService paymentService;
-
-    public PaymentController(PaymentRepository paymentRepository, PaymentService paymentService) {
-        this.paymentService = paymentService;
-        this.paymentRepository = paymentRepository;
+    public PaymentController(PaymentServiceImpl paymentServiceImpl) {
+        this.paymentServiceImpl = paymentServiceImpl;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Payment> getPaymentById(@PathVariable UUID id) {
-        return paymentRepository.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public List<Payment> getAllPayments() {
-        return paymentRepository.findAll();
+    public ResponseEntity<PaymentDto> getPaymentById(@PathVariable UUID id) {
+        PaymentDto payment = paymentServiceImpl.get(id);
+        return ResponseEntity.ok(payment);
     }
 
     @GetMapping("/search")
@@ -58,6 +48,6 @@ public class PaymentController {
             : Sort.by(sortBy).ascending();
 
         Pageable pageable = PageRequest.of(page, size, sort);
-        return paymentService.searchPaged(filter, pageable);
+        return paymentServiceImpl.searchPaged(filter, pageable);
     }
 }
