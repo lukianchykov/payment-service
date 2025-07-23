@@ -1,7 +1,7 @@
 package com.iprody.paymentserviceapp.dto;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.iprody.paymentserviceapp.persistence.entity.PaymentStatus;
@@ -22,9 +22,9 @@ public class PaymentDto {
 
     private String note;
 
-    private Instant createdAt;
+    private OffsetDateTime createdAt;
 
-    private Instant updatedAt;
+    private OffsetDateTime updatedAt;
 
     public UUID getGuid() {
         return guid;
@@ -83,19 +83,19 @@ public class PaymentDto {
         this.note = note;
     }
 
-    public Instant getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Instant getUpdatedAt() {
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
